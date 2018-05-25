@@ -69,7 +69,7 @@ class ServiceDispatcher implements DispatcherInterface
             // Release system resources
             App::trigger(AppEvent::RESOURCE_RELEASE);
 
-            $server->send($fd, $data);
+            $server->send($fd, $data . "\r\n");
         }
         App::trigger(RpcServerEvent::AFTER_RECEIVE);
     }
