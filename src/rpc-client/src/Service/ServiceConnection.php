@@ -22,7 +22,11 @@ class ServiceConnection extends AbstractServiceConnection
     public function createConnection()
     {
         $client = new Client(SWOOLE_SOCK_TCP | SWOOLE_KEEP);
-
+        $client->set(array(
+            'open_eof_check' => true,
+            'package_eof' => "\r\n",
+        ));
+        
         $address = $this->pool->getConnectionAddress();
         $timeout = $this->pool->getTimeout();
         list($host, $port) = explode(':', $address);
